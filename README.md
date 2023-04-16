@@ -14,6 +14,7 @@ reboot
 brew intall  
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"  
+(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/ralstonia/.zprofile
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 sudo apt-get install build-essential  
 brew install gcc
@@ -48,6 +49,16 @@ https://github.com/yuru7/HackGen
 Lsd install  
 ```
 snap install lsd  
+```
+  
+clone enhancd  
+```
+ghq get https://github.com/b4b4r07/enhancd.git
+```
+
+bat install  
+```
+sudo apt install bat
 ```
 
 
