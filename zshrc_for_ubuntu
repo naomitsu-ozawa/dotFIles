@@ -5,6 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/ralstonia/.zprofile
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 # Set up the prompt
 
 autoload -Uz promptinit
@@ -99,13 +102,6 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light mollifier/anyframe
 zinit light b4b4r07/enhancd
 zinit light zdharma-continuum/history-search-multi-word
-
-zinit ice depth=1; zinit light romkatv/powerlevel10k
-
-zstyle ':completion:*' list-colors "${LS_COLORS}" # 補完候補のカラー表示
-zstyle ':completion:*:default' menu select=1
-# zstyle ':completion:*' menu select interactive
-# setopt menu_complete
 
 #anyframe
 zstyle ":anyframe:selector:" use fzf
