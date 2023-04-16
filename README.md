@@ -1,12 +1,29 @@
 # dotFIles
 my dot files
 
-###For Ubuntu
+### For Ubuntu
 zsh install  
 ```
 sudo apt install zsh  
 chsh -s $(which zsh)  
 ```
+  
+reboot  
+
+  
+brew intall  
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"  
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+sudo apt-get install build-essential  
+brew install gcc
+```
+  
+GHQ install  
+```
+brew install ghq
+```
+
   
 FZF install  
 ```
@@ -32,17 +49,5 @@ Lsd install
 ```
 snap install lsd  
 ```
-  
-GHQ install  
-```
-sudo apt update  
-sudo add-apt-repository ppa:longsleep/golang-backports  
-sudo apt install golang-go  
-```
-~/.profile  
-```
-export GOPATH=$HOME/go  
-export PATH=$PATH:$GOPATH/bin
-```  
 
 
