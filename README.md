@@ -13,6 +13,11 @@ FZF install
 sudo apt install fzf
 ```
   
+tree install  
+```
+sudo apt install tree
+```
+  
 Zinit install  
 ```
 bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"  
