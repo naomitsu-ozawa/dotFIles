@@ -66,4 +66,7 @@ bat install
 sudo apt install bat
 ```
 
-
+gh install
+```
+brew install gh
+```
