@@ -10,6 +10,10 @@ chsh -s $(which zsh)
   
 reboot  
 
+git install 
+```
+sudo apt install git
+```
   
 brew intall  
 ```
