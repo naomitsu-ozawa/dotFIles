@@ -23,6 +23,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 sudo apt-get install build-essential  
 brew install gcc
 ```
+reboot
   
 GHQ install  
 ```
