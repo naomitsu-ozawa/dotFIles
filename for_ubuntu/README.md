@@ -1,6 +1,7 @@
 # For Ubuntu
 ---
-
+Please execute in order from the top.  
+---
 ## Install zsh
 ```
 sudo apt install zsh
@@ -51,11 +52,10 @@ Download it and install it with a font manager or something.
 ```
 ghq get https://github.com/b4b4r07/enhancd.git
 ```
+### .zshrc
+Download "zshrc_for_ubuntu" and replace it with ".zshrc".
 
 ### Configure p10K
 ```
 p10k configure
 ```
-
-### .zshrc
-Download "zshrc_for_ubuntu" and replace it with ".zshrc".
