@@ -16,7 +16,7 @@ sudo apt install build-essential procps curl file git
 ## Install HomeBrew
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"  
-(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/eutropha/.zprofile
+(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/**user_name**/.zprofile
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 ```
 #### Make sure to reboot!
