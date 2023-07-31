@@ -58,3 +58,4 @@ p10k configure
 ```
 
 ### .zshrc
+Download "zshrc_for_ubuntu" and replace it with ".zshrc".
