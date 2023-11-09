@@ -8,7 +8,7 @@ If (Test-Path "C:\Users\eutro\miniconda3\Scripts\conda.exe") {
 # set PowerShell to UTF-8
 [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
 
-Import-module posh-git
+# Import-module posh-git
 
 oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/powerlevel10k_rainbow.omp.json" | Invoke-Expression
 
@@ -26,7 +26,7 @@ Set-PSReadLineKeyHandler -Key Tab -Function Complete
 # メニュー補完に変更
 Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 
-Import-Module ZLocation
+Import-Module z
 
 # Fzf
 Import-Module PSFzf
