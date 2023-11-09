@@ -1,3 +1,6 @@
+## install git ghq z fzf
+- scoop install git ghq z fzf
+
 ## install Terminal icons
 - Install-Module -Name Terminal-Icons -Repository PSGallery -Force
   
