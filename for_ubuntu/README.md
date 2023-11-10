@@ -33,9 +33,14 @@ brew install ghq gcc gh
 ```
 sudo apt install fzf tree bat
 ```
-### From Snap
+### From cargo
 ```
-snap install lsd
+curl https://sh.rustup.rs -sSf | sh
+
+```
+```
+cargo install lsd
+
 ```
 ### Install Zsh plugin maneger
 #### Zinit 
