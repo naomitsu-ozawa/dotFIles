@@ -60,6 +60,12 @@ ghq get https://github.com/b4b4r07/enhancd.git
 ### .zshrc
 Download "zshrc_for_ubuntu" and replace it with ".zshrc".
 
+
+### Configure p10K
+```
+p10k configure
+```
+
 ## Deep learning setup
 #### Driver setup
 - Ubuntuのセットアップ時には、プロプライエタリドライバーを使わない。
@@ -88,7 +94,3 @@ Download "zshrc_for_ubuntu" and replace it with ".zshrc".
   - ```pip install -U --force-reinstall onnxruntime-gpu```
   - onnxruntimeは、一度アンインストールしてからgpuバージョンを再インストールしないと、CUDAのEPが使えなかった。
 
-### Configure p10K
-```
-p10k configure
-```
