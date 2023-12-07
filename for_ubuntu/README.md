@@ -60,6 +60,34 @@ ghq get https://github.com/b4b4r07/enhancd.git
 ### .zshrc
 Download "zshrc_for_ubuntu" and replace it with ".zshrc".
 
+## Deep learning setup
+#### Driver setup
+- Ubuntuのセットアップ時には、プロプライエタリドライバーを使わない。
+- Ubuntuセットアップ後にnVidiaドライバーを一旦削除する。
+- 改めて、ｎVidiaのドライバーをセットアップする。
+#### Install Tensorflow
+- 2.15以降の場合
+  - Tensorflow
+    - ```pip install 'tensorflow[and-cuda]'```
+  - TensorRT
+    - ```pip install --extra-index-url https://pypi.nvidia.com tensorrt-bindings==8.6.1 tensorrt-libs==8.6.1```
+- 2.14以前の場合
+  - Tensorflow
+    - ```conda install tensorflow=2.12.*=cuda*```
+  - TensrRTの互換性に注意。
+  
+#### Install Ultralytics
+  - ```pip install ultralytics```
+  - PyTrochのCUDAバージョンに注意。現行のCUDAバージョンの場合は、そのままでOK。
+  - 古いバージョンのCUDAを使う場合は、専用のインストールスクリプトでインストールする。
+  - TensrflowのCUDAを合わせること。
+  
+#### Install rembg
+  - ```pip install 'rembg[gpu]'```
+  - ```pip uninstall onnxruntime```
+  - ```pip install -U --force-reinstall onnxruntime-gpu```
+  - onnxruntimeは、一度アンインストールしてからgpuバージョンを再インストールしないと、CUDAのEPが使えなかった。
+
 ### Configure p10K
 ```
 p10k configure
