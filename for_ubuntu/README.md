@@ -104,6 +104,15 @@ CLIを使う上で便利なツールをインストールします。
   p10k configure
   ```
 
+### snap setup
+- snapもセットアップしておく。
+  - neovim
+  - mpv
+  - vlc
+- ↑をインストールしておく。
+
+### flatpak setup
+- flathubもセットアップしておく。nVidia Driverが更新できるっぽい？
 ### NeoVim setup
 - LazyVimを使う。
 - https://github.com/LazyVim/LazyVim
