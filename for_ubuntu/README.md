@@ -66,6 +66,40 @@ Download "zshrc_for_ubuntu" and replace it with ".zshrc".
 p10k configure
 ```
 
+## Setting up Secure Boot
+- セキュアブートを有効化する場合は、以下の設定を行う
+  1. 署名キーを作成する  
+      ```
+      openssl req -new -x509 -newkey rsa:2048 -keyout MOK.priv -outform DER -out MOK.der -nodes -days 36500 -subj "/CN=Descriptive name/"
+      ```
+  2.  モジュールに署名する  
+      ```
+      sudo /usr/src/linux-headers-$(uname -r)/scripts/sign-file sha256 ./MOK.priv ./MOK.der <</path/to/module>>
+      ```
+      <</path/to/module>>は、以下のコマンドで表示されたパスで置き換える
+      ```
+      modinfo -n nvidia
+      ```
+      以下のコマンドが置き換えたコマンドになる
+      ```
+      sudo /usr/src/linux-headers-$(uname -r)/scripts/sign-file sha256 ./MOK.priv ./MOK.der $(modinfo -n nvidia)
+      ```
+  3.  セキュアブートにキーを登録する
+      ```
+      sudo mokutil --import MOK.der
+      ```
+      このときパスワードの設定を求められる。セキュアブートキー登録に関するパスワードになる。覚えておく。  
+      再起動すると以下の画面になるのでキーを登録する  
+      選択肢は以下の通りでOK  
+          1.  Enroll MOK  
+          2.  Continue  
+          3.  Yes  
+          4.  設定したパスワードを入力  
+          5.  OK  
+  ![Alt text](Screenshot_kvm-rawhide-64-uefi-1_2014-02-27_14_00_13_crop.png)
+  1. もう一度再起動が行われる
+  2. Ubuntuのアップデートなどで↑の画面が表示された場合、再度登録する必要がある。nvidia-smiをして使えないことを確認した後に、iiとiiiを行って再起動させる
+
 ## Deep learning setup
 ### Ubuntu 22.04 LTS
 #### Driver setup
