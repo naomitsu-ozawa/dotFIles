@@ -145,6 +145,23 @@ p10k configure
     sudo apt-get --purge remove "*cuda*" "*cublas*" "*cufft*" "*cufile*" "*curand*"
     \ "*cusolver*" "*cusparse*" "*gds-tools*" "*npp*" "*nvjpeg*" "nsight*" "*nvvm*"
     ```
+#### Conda setup
+- miniforge3を使う
+- https://github.com/conda-forge/miniforge
+- Unix-like platforms (Mac OS & Linux)に従ってインストールする
+  ```
+  curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+  bash Miniforge3-$(uname)-$(uname -m).sh
+  ```
+- zshの場合、initializeされていない場合があるので、その時は以下を実行する
+  ```
+  conda init zsh
+  ```
+- condaチャンネルを追加する。nvidiaとanacondaチャンネルを追加する
+  ```
+  conda config --append channels nvidia
+  conda config --append channels anaconda
+  ```
 #### Tensorflow setup
 - CUDA12.xの環境と11.xの環境を両立させる
 - Condaで環境を分ける
@@ -161,13 +178,13 @@ p10k configure
     - ```conda install tensorflow=2.12.*=cuda*```
   - TensrRTの互換性に注意。
   
-#### Install Ultralytics
+#### Ultralytics YOLOv8 setup
   - ```pip install ultralytics```
   - PyTrochのCUDAバージョンに注意。現行のCUDAバージョンの場合は、そのままでOK。
   - 古いバージョンのCUDAを使う場合は、専用のインストールスクリプトでインストールする。
   - TensrflowのCUDAを合わせること。
   
-#### Install rembg
+#### rembg setup
   - ```pip install 'rembg[gpu]'```
   - ```pip uninstall onnxruntime```
   - ```pip install -U --force-reinstall onnxruntime-gpu```
