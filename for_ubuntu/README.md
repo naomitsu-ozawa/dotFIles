@@ -96,7 +96,7 @@ p10k configure
           3.  Yes  
           4.  設定したパスワードを入力  
           5.  OK  
-  ![Alt text](Screenshot_kvm-rawhide-64-uefi-1_2014-02-27_14_00_13_crop.png)
+  ![Alt text](Screenshot_00.png)
   1. もう一度再起動が行われる
   2. Ubuntuのアップデートなどで↑の画面が表示された場合、再度登録する必要がある。nvidia-smiをして使えないことを確認した後に、iiとiiiを行って再起動させる
 
