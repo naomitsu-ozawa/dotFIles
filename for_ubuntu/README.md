@@ -182,6 +182,7 @@ p10k configure
   - ```pip install ultralytics```
   - PyTrochのCUDAバージョンに注意。現行のCUDAバージョンの場合は、そのままでOK。
   - 古いバージョンのCUDAを使う場合は、専用のインストールスクリプトでインストールする。
+  - https://pytorch.org/get-started/locally/ ここから古いCUDA用のインストールスクリプトを取得する
   - TensrflowのCUDAを合わせること。
   
 #### rembg setup
