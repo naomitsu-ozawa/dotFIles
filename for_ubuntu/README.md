@@ -1,6 +1,20 @@
 # For Ubuntu
 ---
-Please execute in order from the top.  
+## Setup menu
+### Shell setup
+- [Install zsh](README.md#install-zsh)
+### Homebrew setup
+- [Install HomeBrew](README.md#install-homebrew)
+### Terminal Tools setup
+- [Install Terminal Tools](README.md#install-treminal-tools)
+### Setting up Secure Boot
+- [Setting up Secure Boot](README.md#setting-up-secure-boot)
+### Deep learning setup
+- [Deep learning setup](README.md#deep-learning-setup)
+---
+
+
+
 ---
 ## Install zsh
 ```
@@ -9,12 +23,13 @@ chsh -s $(which zsh)
 ```
 #### Make sure to reboot!
 
-## Installing HomeBrew dependencies  
+  
+## Install HomeBrew
+- Installing HomeBrew dependencies  
 ```
 sudo apt install build-essential procps curl file git
 ```
-  
-## Install HomeBrew
+- install homebrew
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"  
 (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/**user_name**/.zprofile
@@ -65,6 +80,12 @@ Download "zshrc_for_ubuntu" and replace it with ".zshrc".
 ```
 p10k configure
 ```
+
+### NeoVim setup
+- LazyVimを使う。
+- https://github.com/LazyVim/LazyVim
+- ColorschemeはSolarized osakaを使う。
+- https://github.com/craftzdog/solarized-osaka.nvim
 
 ## Setting up Secure Boot
 - セキュアブートを有効化する場合は、以下の設定を行う
