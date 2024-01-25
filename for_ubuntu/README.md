@@ -67,16 +67,52 @@ p10k configure
 ```
 
 ## Deep learning setup
+### Ubuntu 22.04 LTS
 #### Driver setup
 - Ubuntuのセットアップ時には、プロプライエタリドライバーを使わない。
 - Ubuntuセットアップ後にnVidiaドライバーを一旦削除する。
+- ```sudo apt-get --purge remove "*nvidia*" "libxnvctrl*"```
+- ```sudo apt-get autoremove```
 - 改めて、ｎVidiaのドライバーをセットアップする。
-#### Install Tensorflow
+- ドラーバーのバージョンは、GPUの種類とCUDAのバージョンに合うものを入れる
+- RTX4070Ti(12GB)の場合は、nvidia-driver-545をセットアップ
+- open-kernelは、新機能を利用可能。ただGPU使用率が低いかも（要検証）？
+#### CUDA setup
+- Condaのみでセットアップした場合、警告メッセージが出てくるので、OS側にもセットアップしておく
+  - ↓がセットアップのドキュメント
+  - https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html?utm_source=pocket_saves
+  - 予め、古いapt-keyを削除しておく  
+    ```sudo apt-key del 7fa2af80```
+  - 次に、↓からDownLoad nowをおしてダウンロード画面へ行く
+  - https://developer.nvidia.com/cuda-toolkit
+  - OSなどインストールする項目を選択してく
+  - Download Installer for Linux Ubuntu 22.04 x86_64のBase Installerに表示されるコードを実行していく
+  - .bashrcもしくは.zshrcに以下を追加する
+    ```
+    # <<<CUDA setting>>>
+    export CUDA_PATH=/usr/local/cuda
+    export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
+    export PATH=/usr/local/cuda/bin:${PATH}
+    ```
+
+- Driver Installerは、すでに対応ドライバーがインストールされている場合はスキップする
+- アップデートするときは、一旦削除しておく
+  - CUDAをアンインストールする場合は以下  
+    ```
+    sudo apt-get --purge remove "*cuda*" "*cublas*" "*cufft*" "*cufile*" "*curand*"
+    \ "*cusolver*" "*cusparse*" "*gds-tools*" "*npp*" "*nvjpeg*" "nsight*" "*nvvm*"
+    ```
+#### Tensorflow setup
+- CUDA12.xの環境と11.xの環境を両立させる
+- Condaで環境を分ける
+- 2.15〜CUDA12.x
 - 2.15以降の場合
   - Tensorflow
     - ```pip install 'tensorflow[and-cuda]'```
   - TensorRT
     - ```pip install --extra-index-url https://pypi.nvidia.com tensorrt-bindings==8.6.1 tensorrt-libs==8.6.1```
+- DeepLabCutなど2.13以前のTensorflowが必要な場合は、CUDA11.xが必要
+- CondaからCUDAをセットアップしてくれるパッケージがあるのでそれを活用する
 - 2.14以前の場合
   - Tensorflow
     - ```conda install tensorflow=2.12.*=cuda*```
