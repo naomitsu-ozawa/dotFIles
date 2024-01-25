@@ -99,6 +99,15 @@ p10k configure
   ![Alt text](Screenshot_00.png)
   1. もう一度再起動が行われる
   2. Ubuntuのアップデートなどで↑の画面が表示された場合、再度登録する必要がある。nvidia-smiをして使えないことを確認した後に、iiとiiiを行って再起動させる
+  3. 間違って何もせずにUbuntuを起動してしまったときは
+      ```
+      sudo mokutil --disable-validation
+      ```
+      で再度一時的なパスを入力して再起動  
+  4.  セキュアブートをONにする画面は  
+      ```
+      sudo mokutil --enable-validation
+      ```
 
 ## Deep learning setup
 ### Ubuntu 22.04 LTS
