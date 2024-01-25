@@ -12,19 +12,35 @@
 ### Deep learning setup
 - [Deep learning setup](README.md#deep-learning-setup-1)
 ---
-
+Ubuntu22.04LTSで深層学習をするためのセットアップです。  
+ワークステーションの仕様は以下の通り。
+|項目|詳細|
+|-|-|
+|CPU|intel i7 13700K|
+|GPU|nVidia RTX4070Ti 12GB|
+|coolor|NZXT kraken240|
+|memory|128GB|
+|storage 1|Ubuntu(1TB)|
+|storage 2|Windows(1TB)|
+|storage 3|share storage(2TB)|
 
 
 ---
 ## Install zsh
+Bashよりカスタムしやすいので、Shellはzshを使います。
 ```
 sudo apt install zsh
 chsh -s $(which zsh)  
 ```
-#### Make sure to reboot!
+**Make sure to reboot!**  
+```
+sudo reboot
+```
 
   
 ## Install HomeBrew
+いくつかのツールはHomeBrew経由で入手するので、セットアップします。  
+依存関係をインストール後に、HomeBrewのインストールスクリプトを実行します。
 - Installing HomeBrew dependencies  
 ```
 sudo apt install build-essential procps curl file git
@@ -35,51 +51,56 @@ sudo apt install build-essential procps curl file git
 (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/**user_name**/.zprofile
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 ```
-#### Make sure to reboot!
+**Make sure to reboot!**
+```
+sudo reboot
+```
 ---
 ## Install Treminal Tools
+CLIを使う上で便利なツールをインストールします。
+
 ### From HomeBrew
-#### GCC, GH  and GHQ install  
-```
-brew install ghq gcc gh
-```
+- #### GCC, GH  and GHQ install  
+  ```
+  brew install ghq gcc gh
+  ```
 ### From apt
-#### FZF ,TREE and BAT install  
-```
-sudo apt install fzf tree bat
-```
-### From cargo
-```
-curl https://sh.rustup.rs -sSf | sh
+- #### FZF ,TREE and BAT install  
+  ```
+  sudo apt install fzf tree bat
+  ```
+- ### From cargo
+  ```
+  curl https://sh.rustup.rs -sSf | sh
 
-```
-```
-cargo install lsd
+  ```
+  ```
+  cargo install lsd
 
-```
+  ```
 ### Install Zsh plugin maneger
-#### Zinit 
-```
-bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"  
-```
-#### Font Hack gen nerd font install  
-```
-https://github.com/yuru7/HackGen  
-```
-Download it and install it with a font manager or something.  
+- #### Zinit 
+  ```
+  bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"  
+  ```
+- #### Font Hack gen nerd font install  
+  ターミナルで使うフォントは、hack gen nerd fontを使います。  
+  https://github.com/yuru7/HackGen  
+  ダウンロード後は、フォントマネージャなどでインストールしてください。
 
-#### clone enhancd  
-```
-ghq get https://github.com/b4b4r07/enhancd.git
-```
+- #### clone enhancd  
+  ```
+  ghq get https://github.com/b4b4r07/enhancd.git
+  ```
 ### .zshrc
-Download "zshrc_for_ubuntu" and replace it with ".zshrc".
+- Download "zshrc_for_ubuntu" and replace it with ".zshrc".
 
 
 ### Configure p10K
-```
-p10k configure
-```
+- PowerLineの設定を、以下のコマンドで行います。
+  ```
+  p10k configure
+  ```
 
 ### NeoVim setup
 - LazyVimを使う。
@@ -87,6 +108,7 @@ p10k configure
 - ColorschemeはSolarized osakaを使う。
 - https://github.com/craftzdog/solarized-osaka.nvim
 
+---
 ## Setting up Secure Boot
 - セキュアブートを有効化する場合は、以下の設定を行う
   1. 署名キーを作成する  
@@ -129,7 +151,7 @@ p10k configure
       ```
       sudo mokutil --enable-validation
       ```
-
+---
 ## Deep learning setup
 ### Ubuntu 22.04 LTS
 #### Driver setup
@@ -211,4 +233,4 @@ p10k configure
   - ```pip uninstall onnxruntime```
   - ```pip install -U --force-reinstall onnxruntime-gpu```
   - onnxruntimeは、一度アンインストールしてからgpuバージョンを再インストールしないと、CUDAのEPが使えなかった。
-
+---
