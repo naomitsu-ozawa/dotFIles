@@ -2,11 +2,11 @@
 ---
 ## Setup menu
 ### Shell setup
-- [Install zsh](README.md#install-zsh-1)
+- [Install zsh](README.md#install-zsh)
 ### Homebrew setup
-- [Install HomeBrew](README.md#install-homebrew-1)
+- [Install HomeBrew](README.md#install-homebrew)
 ### Terminal Tools setup
-- [Install Terminal Tools](README.md#install-treminal-tools-1)
+- [Install Terminal Tools](README.md#install-treminal-tools)
 ### Setting up Secure Boot
 - [Setting up Secure Boot](README.md#setting-up-secure-boot-1)
 ### Deep learning setup
