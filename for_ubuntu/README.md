@@ -11,6 +11,8 @@
 - [Setting up Secure Boot](README.md#setting-up-secure-boot-1)
 ### Deep learning setup
 - [Deep learning setup](README.md#deep-learning-setup-1)
+### CPU Cooler setup
+- [CPU Cooler setup](README.md#cpu-cooler-setup-1)
 ---
 Ubuntu22.04LTSで深層学習をするためのセットアップです。  
 ワークステーションの仕様は以下の通り。
@@ -243,3 +245,37 @@ Open-kernelに関しては、未検証。推奨ドライバーになるという
   - ```pip install -U --force-reinstall onnxruntime-gpu```
   - onnxruntimeは、一度アンインストールしてからgpuバージョンを再インストールしないと、CUDAのEPが使えなかった。
 ---
+### CPU Cooler setup
+NZXT kraken 240の制御をUbuntuで行いたかったので、liquidctlをセットアップする。  
+[Cooler control](https://gitlab.com/coolercontrol/coolercontrol)が対応してくれれば、乗り換えたい。
+### liquidctl setup
+- https://github.com/liquidctl/liquidctl
+- git versionで実験的に対応済みなので、gitの最新スナップショットをインストールする。
+  ```
+  # the latest snapshot of the official source code repository (requires git)
+  python -m pip install git+https://github.com/liquidctl/liquidctl#egg=liquidctl
+  ```
+- /etc/udev/rules.dの中に[71-liquidctl.rules](https://github.com/liquidctl/liquidctl/blob/main/extra/linux/71-liquidctl.rules)を作成する。
+- systemdに登録してサービス化する。
+- ```/etc/systemd/system/liquidcfg.service```
+- liquidcfg.serviceの例
+  ```
+  [Unit]
+  Description=AIO startup service
+
+  [Service]
+  Type=oneshot
+  ExecStart=/home/idm-kurume/miniforge3/bin/liquidctl initialize all
+  ExecStart=/home/idm-kurume/miniforge3/bin/liquidctl set pump speed  25 30  30 50  35 75  40 100
+  ExecStart=/home/idm-kurume/miniforge3/bin/liquidctl set fan speed 25 40  30 60  34 90  38 100
+
+  [Install]
+  WantedBy=default.target
+  ```
+- systemctlの自動実行設定をする
+  ```
+  systemctl daemon-reload
+  systemctl start liquidcfg
+  systemctl enable liquidcfg
+  ```
+  ---
