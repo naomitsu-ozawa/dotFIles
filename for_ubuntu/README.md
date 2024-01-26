@@ -227,24 +227,25 @@ Open-kernelに関しては、未検証。推奨ドライバーになるという
   conda config --append channels anaconda
   ```
 #### Tensorflow setup
-- CUDA12.xの環境と11.xの環境を両立させる
-- Condaで環境を分ける
-- 2.15〜CUDA12.x
-- 2.15以降の場合
-  - CUDAのインストール(OS側にインストールしている場合はスキップ可)
-    - ```conda install cuda -c nvidia```
-  - TensorflowとCUDAに必要な諸々をインストール
-    - ```pip install 'tensorflow[and-cuda]'```
-  - TensorRT（必要ならTensorRTもインストール）
-    - ```pip install --extra-index-url https://pypi.nvidia.com tensorrt-bindings==8.6.1 tensorrt-libs==8.6.1```
-- DeepLabCutなど2.13以前のTensorflowが必要な場合は、CUDA11.xが必要
-- CondaからCUDAをセットアップしてくれるパッケージがあるのでそれを活用する
-- 2.14以前の場合
-  - CUDAのインストール(OS側にインストールしている場合はスキップ可)
-    - ```conda install cuda -c nvidia```
-  - Tensorflow
-    - ```conda install tensorflow=2.12.*=cuda*```
-  - TensrRTの互換性に注意。
+CUDA12.xの環境と11.xの環境を両立させる  
+Conda使って環境を分ける
+- CUDA12.x  
+  - Tensorflow2.15以降
+    - CUDAのインストール(OS側にインストールしている場合はスキップ可)
+      - ```conda install cuda -c nvidia```
+    - TensorflowとCUDAに必要な諸々をインストール(ライブラリやcuDnnなどもインストールされる)
+      - ```pip install 'tensorflow[and-cuda]'```
+    - TensorRT（必要ならTensorRTもインストール）
+      - ```pip install --extra-index-url https://pypi.nvidia.com tensorrt-bindings==8.6.1 tensorrt-libs==8.6.1```
+DeepLabCutなど2.13以前のTensorflowが必要な場合は、CUDA11.xが必要
+CondaからCUDAをセットアップしてくれるパッケージがあるのでそれを活用する
+- CUDA11.x
+  - Tensorflow2.14以前の場合
+    - CUDAのインストール(OS側にインストールしている場合はスキップ可)
+      - ```conda install cuda -c nvidia```
+    - TensorflowとCUDAに必要な諸々をインストール（ライブラリやcuDnnなどもインストールされる）
+      - ```conda install tensorflow=2.12.*=cuda*```
+    - TensrRTの互換性に注意。
   
 #### Ultralytics YOLOv8 setup
   - ```pip install ultralytics```
