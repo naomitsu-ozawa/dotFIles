@@ -280,9 +280,9 @@ NZXT kraken 240の制御をUbuntuで行いたかったので、liquidctlをセ�
 
   [Service]
   Type=oneshot
-  ExecStart=/home/idm-kurume/miniforge3/bin/liquidctl initialize all
-  ExecStart=/home/idm-kurume/miniforge3/bin/liquidctl set pump speed  25 30  30 50  35 75  40 100
-  ExecStart=/home/idm-kurume/miniforge3/bin/liquidctl set fan speed 25 40  30 60  34 90  38 100
+  ExecStart=/home/<<<user_name>>>/miniforge3/bin/liquidctl initialize all
+  ExecStart=/home/<<<user_name>>>/miniforge3/bin/liquidctl set pump speed  25 30  30 50  35 75  40 100
+  ExecStart=/home/<<<user_name>>>/miniforge3/bin/liquidctl set fan speed 25 40  30 60  34 90  38 100
 
   [Install]
   WantedBy=default.target
