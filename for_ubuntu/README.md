@@ -180,7 +180,7 @@ Open-kernelに関しては、未検証。推奨ドライバーになるという
 - ```sudo apt-get --purge remove "*nvidia*" "libxnvctrl*"```
 - ```sudo apt-get autoremove```
 - 改めて、ｎVidiaのドライバーをセットアップする。
-- ドラーバーのバージョンは、GPUの種類とCUDAのバージョンに合うものを入れる
+- ドライバーのバージョンは、GPUの種類とCUDAのバージョンに合うものを入れる
 - RTX4070Ti(12GB)の場合は、nvidia-driver-545をセットアップ
 - open-kernelは、新機能を利用可能。ただGPU使用率が低いかも（要検証）？
 #### CUDA setup
