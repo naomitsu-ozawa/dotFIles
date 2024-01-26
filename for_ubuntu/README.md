@@ -184,7 +184,8 @@ Open-kernelに関しては、未検証。推奨ドライバーになるという
 - RTX4070Ti(12GB)の場合は、nvidia-driver-545をセットアップ
 - open-kernelは、新機能を利用可能。ただGPU使用率が低いかも（要検証）？
 #### CUDA setup
-- Condaのみでセットアップした場合、警告メッセージが出てくるので、OS側にもセットアップしておく
+- Conda側でセットアップする場合はスキップ可
+- OS側にセットアップする場合
   - ↓がセットアップのドキュメント
   - https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html?utm_source=pocket_saves
   - 予め、古いapt-keyを削除しておく  
@@ -230,13 +231,17 @@ Open-kernelに関しては、未検証。推奨ドライバーになるという
 - Condaで環境を分ける
 - 2.15〜CUDA12.x
 - 2.15以降の場合
-  - Tensorflow
+  - CUDAのインストール(OS側にインストールしている場合はスキップ可)
+    - ```conda install cuda -c nvidia```
+  - TensorflowとCUDAに必要な諸々をインストール
     - ```pip install 'tensorflow[and-cuda]'```
-  - TensorRT
+  - TensorRT（必要ならTensorRTもインストール）
     - ```pip install --extra-index-url https://pypi.nvidia.com tensorrt-bindings==8.6.1 tensorrt-libs==8.6.1```
 - DeepLabCutなど2.13以前のTensorflowが必要な場合は、CUDA11.xが必要
 - CondaからCUDAをセットアップしてくれるパッケージがあるのでそれを活用する
 - 2.14以前の場合
+  - CUDAのインストール(OS側にインストールしている場合はスキップ可)
+    - ```conda install cuda -c nvidia```
   - Tensorflow
     - ```conda install tensorflow=2.12.*=cuda*```
   - TensrRTの互換性に注意。
