@@ -29,8 +29,7 @@ HISTFILE=~/.zsh_history
 zinit light zsh-users/zsh-completions
 zinit light conda-incubator/conda-zsh-completion
 
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
