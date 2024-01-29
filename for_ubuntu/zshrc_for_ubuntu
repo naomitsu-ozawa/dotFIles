@@ -26,6 +26,9 @@ SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
 # Use modern completion system
+zinit light zsh-users/zsh-completions
+zinit light conda-incubator/conda-zsh-completion
+
 autoload -Uz compinit
 compinit
 
