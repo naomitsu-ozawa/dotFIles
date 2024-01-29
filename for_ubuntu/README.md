@@ -176,13 +176,17 @@ Open-kernelに関しては、未検証。推奨ドライバーになるという
 ### Ubuntu 22.04 LTS
 #### Driver setup
 - Ubuntuのセットアップ時には、プロプライエタリドライバーを使わない。
-- Ubuntuセットアップ後にnVidiaドライバーを一旦削除する。
-- ```sudo apt-get --purge remove "*nvidia*" "libxnvctrl*"```
-- ```sudo apt-get autoremove```
-- 改めて、ｎVidiaのドライバーをセットアップする。
+- Ubuntuのソフトウェアとアップデート→追加のドライバーから簡単にセットアップできる。
+- 選択して変更の適応を押した後、ドライバーのダウンロードなどがバックグラウンドで処理されるので、しばらく待つ。
+  ![Alt text](image.png)
 - ドライバーのバージョンは、GPUの種類とCUDAのバージョンに合うものを入れる
 - RTX4070Ti(12GB)の場合、2024年1月29日時点では、nvidia-driver-545もしくはnvidia-driver-545-openをセットアップ
 - open-kernelは、新機能を利用可能。どちらでもOK。
+- もし、ソフトウェアとアップデートで選択できない場合は、
+   - nVidiaドライバーを一旦削除する。
+  - ```sudo apt-get --purge remove "*nvidia*" "libxnvctrl*"```
+  - ```sudo apt-get autoremove```
+  - 改めて、ｎVidiaのドライバーをセットアップする。
 #### CUDA setup
 - Conda側でセットアップする場合はスキップ可
 - OS側にセットアップする場合
