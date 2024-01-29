@@ -180,7 +180,7 @@ Open-kernelに関しては、未検証。推奨ドライバーになるという
 - 選択して変更の適応を押した後、ドライバーのダウンロードなどがバックグラウンドで処理されるので、しばらく待つ。
   ![Alt text](image.png)
 - ドライバーのバージョンは、GPUの種類とCUDAのバージョンに合うものを入れる
-- RTX4070Ti(12GB)の場合、2024年1月29日時点では、nvidia-driver-545もしくはnvidia-driver-545-openをセットアップ
+- RTX4070Ti(12GB)の場合、CUDA12.3では、nvidia-driver-545もしくはnvidia-driver-545-openをセットアップ
 - open-kernelは、新機能を利用可能。どちらでもOK。
 - もし、ソフトウェアとアップデートで選択できない場合は、
    - nVidiaドライバーを一旦削除する。
@@ -232,25 +232,42 @@ Open-kernelに関しては、未検証。推奨ドライバーになるという
   conda config --append channels anaconda
   ```
 #### Tensorflow setup
-CUDA12.xの環境と11.xの環境を両立させる  
-Conda使って環境を分ける
-- CUDA12.x  
-  - Tensorflow2.15以降
-    - CUDAのインストール(OS側にインストールしている場合はスキップ可)
-      - ```conda install cuda -c nvidia```
-    - TensorflowとCUDAに必要な諸々をインストール(ライブラリやcuDnnなどもインストールされる)
-      - ```pip install 'tensorflow[and-cuda]'```
-    - TensorRT（必要ならTensorRTもインストール）
-      - ```pip install --extra-index-url https://pypi.nvidia.com tensorrt-bindings==8.6.1 tensorrt-libs==8.6.1```
-DeepLabCutなど2.13以前のTensorflowが必要な場合は、CUDA11.xが必要
-CondaからCUDAをセットアップしてくれるパッケージがあるのでそれを活用する
-- CUDA11.x
-  - Tensorflow2.14以前の場合
-    - CUDAのインストール(OS側にインストールしている場合はスキップ可)
-      - ```conda install cuda -c nvidia```
-    - TensorflowとCUDAに必要な諸々をインストール（ライブラリやcuDnnなどもインストールされる）
-      - ```conda install tensorflow=2.12.*=cuda*```
-    - TensrRTの互換性に注意。
+Condaを使って、異なるバージョンを環境ごとにセットアップする  
+※2024年1月29日現在、CUDAの最新バージョンは12.3.2
+- Tensorflow2.15以降  
+Tensorflow2.15以降は、CUDA12.xに移行している  
+  - CUDAのインストール(OS側にインストールしている場合はスキップ可)
+    - Nvidia CUDA compiler（nvcc）が必要なのでいれる。（ドライバーが対応しているバージョンを入れること）
+    - ```conda install cuda -c nvidia```
+    - nvccが入ったかどうかを```nvcc --version```を実行して確認する。
+  - TensorflowとCUDAに必要な諸々をインストール(依存関係やcuDnnなどもインストールされる)
+    - ```pip install 'tensorflow[and-cuda]'```
+  - TensorRT（必要ならTensorRTもインストール）
+    - ```pip install --extra-index-url https://pypi.nvidia.com tensorrt-bindings==8.6.1 tensorrt-libs==8.6.1```  
+
+- Tensorflow2.14以前の場合  
+DeepLabCutなど2.13以前のTensorflowが必要な場合は、CUDA11.xが必要  
+CondaからCUDA11.8の依存関係をセットアップしてくれるパッケージがあるのでそれを活用する  
+Condaで配布されているCUDA付きのパッケージを入れると、CUDA関係の依存関係がインストールされる  
+  - CUDAのインストール(OS側にインストールしている場合はスキップ可)
+    - Nvidia CUDA compiler（nvcc）が必要なのでいれる。（ドライバーが対応しているバージョンを入れること、Tensorflowではなく、ドライバー側の対応バージョンを入れる）
+    - ```conda install cuda -c nvidia```
+    - nvccが入ったかどうかを```nvcc --version```を実行して確認する。
+  - TensorflowとCUDAに必要な諸々をインストール（依存関係やcuDnnなどもインストールされる、ここでTensorflowに必要なCUDAの依存関係がインストールされる）
+    - ```conda search tensorflow```  
+    検索に出た一覧の中からcudaのパッケージを選んでインストールする  
+    例）  
+
+      |Name|Version|Build|Channel|
+      |-|-|-|-|
+      |tensorflow|2.12.1|cuda112py39h9864e96_1|conda-forge|
+
+    Build情報の```cuda112py39h9864e96_1 ```をtensorflowのバージョンの後に指定することで依存関係を含めてインストールできる
+    - ```conda install tensorflow=<<<version>>>=<<<build>>> -c <<<channel>>>```  
+      ↑の形式に当てはめる感じで↓のコマンドでインストールできる
+    - ```conda install tensorflow=2.12.1=cuda112py39h9864e96_1 -c conda-forge```  
+      で指定したTensorflowのバージョンとその依存関係がインストールできる
+  - TensrRTの互換性に注意。
   
 #### Ultralytics YOLOv8 setup
   - ```pip install ultralytics```
