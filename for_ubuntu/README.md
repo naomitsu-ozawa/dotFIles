@@ -184,6 +184,8 @@ Open-kernelに関しては、GPU Direct Storageが利用可能で、学習効率
 - ドライバーのバージョンは、GPUの種類とCUDAのバージョンに合うものを入れる
 - RTX4070Ti(12GB)の場合、CUDA12.3では、nvidia-driver-545もしくはnvidia-driver-545-openをセットアップ
 - open-kernelは、新機能を利用可能。どちらでもOK。
+- zlibのインストール
+- ```sudo apt-get install zlib1g```
 - もし、ソフトウェアとアップデートで選択できない場合は、
    - nVidiaドライバーを一旦削除する。
   - ```sudo apt-get --purge remove "*nvidia*" "libxnvctrl*"```
