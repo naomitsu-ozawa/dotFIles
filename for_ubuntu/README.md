@@ -279,10 +279,31 @@ Condaで配布されているCUDA付きのパッケージを入れると、CUDA�
       ```ls /sys/bus/pci/devices/```
     - numa node の状態を確認　-1の場合無効になっている
       ```cat /sys/bus/pci/devices/0000\:01\:00.0/numa_node```
-    - NUMA NODE を有効化する
+    - NUMA NODE を有効化する  
       ```sudo echo 0 | sudo tee -a /sys/bus/pci/devices/0000\:01\:00.0/numa_node```
-    - 有効になったかを確認
-      ```cat /sys/bus/pci/devices/0000\:01\:00.0/numa_node```
+    - 有効になったかを確認  
+      ```cat /sys/bus/pci/devices/0000\:01\:00.0/numa_node```  
+    - systemdでサービス化する  
+      ```/etc/systemd/system/vga_numa_connect.service```  
+      ↑のファイルを作成する
+    - 中身
+      ```
+      [Unit]
+      Description=vga_numa_connect command
+
+      [Service]
+      ExecStart=/bin/bash -c 'echo 0 | sudo tee -a /sys/bus/pci/devices/0000:01:00.0/numa_node'
+
+      [Install]
+      WantedBy=default.target
+      ```
+    - 有効化
+      ```
+      sudo systemctl enable vga_numa_connect.service
+      sudo systemctl start vga_numa_connect.service
+      ```
+
+
 
 #### Ultralytics YOLOv8 setup
   - ```pip install ultralytics```
