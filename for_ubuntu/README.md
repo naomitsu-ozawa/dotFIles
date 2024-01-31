@@ -271,8 +271,19 @@ Condaで配布されているCUDA付きのパッケージを入れると、CUDA�
       ↑の形式に当てはめる感じで↓のコマンドでインストールできる
     - ```conda install tensorflow=2.12.1=cuda112py39h9864e96_1 -c conda-forge```  
       で指定したTensorflowのバージョンとその依存関係がインストールできる
-  - TensrRTの互換性に注意。
-  
+    - TensrRTの互換性に注意。
+  - tensorflow実行時にNUMA nodeの警告が出る場合
+    - GPUを確認する
+      ```lspci | grep -i nvidia```
+    - VGAの番号があるかを確認
+      ```ls /sys/bus/pci/devices/```
+    - numa node の状態を確認　-1の場合無効になっている
+      ```cat /sys/bus/pci/devices/0000\:01\:00.0/numa_node```
+    - NUMA NODE を有効化する
+      ```sudo echo 0 | sudo tee -a /sys/bus/pci/devices/0000\:01\:00.0/numa_node```
+    - 有効になったかを確認
+      ```cat /sys/bus/pci/devices/0000\:01\:00.0/numa_node```
+
 #### Ultralytics YOLOv8 setup
   - ```pip install ultralytics```
   - PyTrochのCUDAバージョンに注意。現行のCUDAバージョンの場合は、そのままでOK。
