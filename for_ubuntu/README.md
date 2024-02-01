@@ -302,6 +302,33 @@ Condaで配布されているCUDA付きのパッケージを入れると、CUDA�
       sudo systemctl enable vga_numa_connect.service
       sudo systemctl start vga_numa_connect.service
       ```
+  - このエラーが表示される場合、layout_optimizerをオフにする。 Tensorflow(2.15 post1)の不具合かもしれない 
+    ```
+    layout failed: INVALID_ARGUMENT: Size of values 0 does not match size of permutation 4 @ fanin shape inmodel/***/dropout/SelectV2-2-TransposeNHWCToNCHW-LayoutOptimizer
+    ```
+    - 学習コードに以下を追加してオプション指定でモデルをコンパイルする
+      ```
+      import contextlib
+
+      @contextlib.contextmanager
+      def options(options):
+          old_opts = tf.config.optimizer.get_experimental_options()
+          tf.config.optimizer.set_experimental_options(options)
+          try:
+              yield
+          finally:
+              tf.config.optimizer.set_experimental_options(old_opts)
+      
+      ```
+      ```
+      with options({"layout_optimizer": False}):
+          model.compile(
+              loss=LOSS,
+              optimizer=OPTIMIZER,
+              metrics=["accuracy"],
+              # jit_compile=True
+          )
+      ```
 
 
 
