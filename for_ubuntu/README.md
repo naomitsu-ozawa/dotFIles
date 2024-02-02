@@ -166,6 +166,18 @@ Windows11とデュアルブート環境を作成しているので、UEFIのセ�
       sudo mokutil --enable-validation
       ```
 ---
+## Waylandを有効にしたい場合（デフォルトは無効）  
+- nVidiaGPU搭載でUbuntuをセットアップした場合、デフォルトでWaylandが無効化されている（22.04LTS）。
+- Xorgで問題ないが、どうしてもWaylandを使う場合は以下の手順を行う。
+- nVidia driver 510以降で対応しているらしい  
+```/etc/gdm3/custom.conf```  
+  をテキストエディタで開き、WaylandEnableの項目をfalse -> trueに変更する。
+- 再起動して、ログインユーザー選択画面でユーザーを選択後、パスワードを入力せずに画面右下の歯車アイコンをクリックする。 下のメニューからubuntu on waylandを選択すると利用できる 
+  ```
+  ubuntu
+  ubuntu on wayland <- これを選ぶ
+  ```
+---
 ## Deep learning setup
 Ubuntuのセットアップ時には、プロプライエタリドライバーを使わずにセットアップする。  
 セットアップ時にプロプライエタリドライバーを使うようにしたら、セットアップ後にドライバーの変更ができない症状が出たので・・・  
@@ -302,7 +314,7 @@ Condaで配布されているCUDA付きのパッケージを入れると、CUDA�
       sudo systemctl enable vga_numa_connect.service
       sudo systemctl start vga_numa_connect.service
       ```
-  - このエラーが表示される場合、layout_optimizerをオフにする。 Tensorflow(2.15 post1)の不具合かもしれない 
+  - ↓のエラーが表示される場合、layout_optimizerをオフにする。 Tensorflow(2.15 post1)の不具合かもしれない 
     ```
     layout failed: INVALID_ARGUMENT: Size of values 0 does not match size of permutation 4 @ fanin shape inmodel/***/dropout/SelectV2-2-TransposeNHWCToNCHW-LayoutOptimizer
     ```
