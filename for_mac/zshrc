@@ -3,6 +3,13 @@
 # confirmations, etc.) must go above this block; everything else may go below.
 # 
 
+################################################################################
+# ghqに依存したパスを設定しているので、Gitの管理はghqで行う
+# homebrew経由で色々インストールしてからこの設定ファイルを設置する
+#
+#
+################################################################################
+
 if type brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
     FPATH=$(brew --prefix)/opt/fzf/install:$FPATH
@@ -19,6 +26,13 @@ export PROMPT="%n@%m(`uname -m`) %1~ %# "
 
 alias arm="exec arch -arch arm64e /bin/zsh --login"
 alias x64="exec arch -arch x86_64 /bin/zsh --login"
+
+alias pip='function _pip(){
+    if [ $1 = "search" ]; then
+        pip_search "$2";
+    else pip "$@";
+    fi;
+};_pip'
 
 function code {
     if [[ $# = 0 ]]
@@ -50,21 +64,6 @@ alias ll='lsd -l'
 alias lla='lsd -al'
 alias nv="nvim"
 
-#
-## >>> conda initialize >>>
-## !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-#if [ $? -eq 0 ]; then
-#    eval "$__conda_setup"
-#else
-#    if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
-#        . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh"
-#    else
-#        export PATH="/opt/homebrew/Caskroom/miniforge/base/bin:$PATH"
-#    fi
-#fi
-#unset __conda_setup
-## <<< conda initialize <<<
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
     print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
@@ -74,10 +73,10 @@ if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
         print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
 
-
 source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit's installer chunk
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
@@ -87,30 +86,38 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
 
-### End of Zinit's installer chunk
+# Use modern completion system
+zinit light zsh-users/zsh-completions
+zinit light conda-incubator/conda-zsh-completion
+autoload -Uz compinit && compinit
 
 # Load Plugin
 zinit light zsh-users/zsh-autosuggestions
 zinit light momo-lab/zsh-abbrev-alias
 zinit light zsh-users/zsh-syntax-highlighting
-# zinit light zsh-users/zsh-completions
 zinit light mollifier/anyframe
 zinit light b4b4r07/enhancd
 zinit light zdharma-continuum/history-search-multi-word
 
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-zstyle ':completion:*' list-colors "${LS_COLORS}" # 補完候補のカラー表示
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' group-name ''
 zstyle ':completion:*:default' menu select=1
-# zstyle ':completion:*' menu select interactive
-# setopt menu_complete
 
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
 
-
-# $LS_COLORS
-if [ "$LS_COLORS" -a -f /etc/DIR_COLORS ]; then
-    eval $(dircolors /etc/DIR_COLORS)
-fi
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 #anyframe
 zstyle ":anyframe:selector:" use fzf
@@ -141,11 +148,10 @@ export ENHANCD_FILTER="fzf --preview 'tree -C {} | head -200'"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Codon compiler path (added by install script)
-export PATH=/Users/ozawa/.codon/bin:$PATH
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/curl/lib/pkgconfig"
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-
+export LDFLAGS="-L/opt/homebrew/opt/libomp/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/libomp/include"
