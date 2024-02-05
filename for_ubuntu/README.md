@@ -250,7 +250,7 @@ Open-kernelに関しては、GPU Direct Storageが利用可能で、学習効率
 #### Tensorflow setup
 Condaを使って、異なるバージョンを環境ごとにセットアップする  
 ※2024年1月29日現在、CUDAの最新バージョンは12.3.2
-- Tensorflow2.15以降  
+- Tensorflow2.14以降  
 Tensorflow2.15以降は、CUDA12.xに移行している  
   - CUDAのインストール(OS側にインストールしている場合はスキップ可)
     - Nvidia CUDA compiler（nvcc）が必要なのでいれる。（ドライバーが対応しているバージョンを入れること）
@@ -258,10 +258,9 @@ Tensorflow2.15以降は、CUDA12.xに移行している
     - nvccが入ったかどうかを```nvcc --version```を実行して確認する。
   - TensorflowとCUDAに必要な諸々をインストール(依存関係やcuDnnなどもインストールされる)
     - ```pip install 'tensorflow[and-cuda]'```
-  - TensorRT（必要ならTensorRTもインストール）
-    - ```pip install --extra-index-url https://pypi.nvidia.com tensorrt-bindings==8.6.1 tensorrt-libs==8.6.1```  
+    - tensorflow=2.15post1の場合、tensorrtが見つけられない警告が出るかもしれない。2.14は出なかった。
 
-- Tensorflow2.14以前の場合  
+- Tensorflow2.13以前の場合  
 DeepLabCutなど2.13以前のTensorflowが必要な場合は、CUDA11.xが必要  
 CondaからCUDA11.8の依存関係をセットアップしてくれるパッケージがあるのでそれを活用する  
 Condaで配布されているCUDA付きのパッケージを入れると、CUDA関係の依存関係がインストールされる  
@@ -284,6 +283,8 @@ Condaで配布されているCUDA付きのパッケージを入れると、CUDA�
     - ```conda install tensorflow=2.12.1=cuda112py39h9864e96_1 -c conda-forge```  
       で指定したTensorflowのバージョンとその依存関係がインストールできる
     - TensrRTの互換性に注意。
+      - TensorRT
+        - ```pip install --extra-index-url https://pypi.nvidia.com tensorrt-bindings==8.6.1 tensorrt-libs==8.6.1```  
   - tensorflow実行時にNUMA nodeの警告が出る場合
     - GPUを確認する
       ```lspci | grep -i nvidia```
