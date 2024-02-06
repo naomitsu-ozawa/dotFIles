@@ -104,8 +104,7 @@ bindkey '^g' anyframe-widget-cd-ghq-repository
 
 
 # FZF&Enhancd
-# GHQを使うことを前提とした設定
-source "$HOME/ghq/github.com/b4b4r07/enhancd/init.sh"
+source "$HOME/.local/share/zinit/plugins/b4b4r07---enhancd/init.sh"
 export BAT_THEME="Solarized (dark)"
 export FZF_DEFAULT_OPTS=" \
     --reverse \
