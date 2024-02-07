@@ -355,7 +355,8 @@ Condaで配布されているCUDA付きのパッケージを入れると、CUDA�
 #### rembg setup
   - ```pip install 'rembg[gpu]'```
   - ```pip uninstall onnxruntime```
-  - ```pip install -U --force-reinstall onnxruntime-gpu```
+  - ```pip uninstall onnxruntime-gpu```
+  - ```conda install onnxruntime=1.17.0=py311hd0df001_0_cuda```
   - onnxruntimeは、一度アンインストールしてからgpuバージョンを再インストールしないと、CUDAのEPが使えなかった。
 ---
 ### CPU Cooler setup
