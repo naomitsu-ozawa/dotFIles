@@ -357,7 +357,17 @@ Condaで配布されているCUDA付きのパッケージを入れると、CUDA�
   - ```pip uninstall onnxruntime```
   - ```pip uninstall onnxruntime-gpu```
   - ```conda install onnxruntime=1.17.0=py311hd0df001_0_cuda```
-  - onnxruntimeは、一度アンインストールしてからgpuバージョンを再インストールしないと、CUDAのEPが使えなかった。
+  - onnxruntimeは、一度アンインストールしてからcudaバージョンを再インストールしないと、CUDAのEPが使えなかった。
+  - conda forge channelにあるcuda同梱バージョンのインストールでGPUが利用できた。
+  - alpha mattingを使うと処理速度が遅くなる。
+
+#### Condaとpipの混在について
+##### Condaとpip両方を利用して環境を構築する際の注意点
+ - ```pip install ***```したものを```pip uninstall ***```した場合、指定したパッケージのみを削除し、依存関係にあるパッケージは残る。
+ - ```conda install ***```したのもを```conda uninstall ***```した場合、指定したパッケージとその依存関係を削除する。
+ - 上記の違いに注意して管理をする。
+ - 例えば、CondaでインストールしたパッケージとPipでインストールしたパッケージの共通の依存関係（numpyなどが多い）が混乱する場合が多いので注意。
+ - できるだけpipで管理して、condaを便利に使う感じで。
 ---
 ### CPU Cooler setup
 NZXT kraken 240の制御をUbuntuで行いたかったので、liquidctlをセットアップする。  
