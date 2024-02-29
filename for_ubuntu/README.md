@@ -189,6 +189,7 @@ Open-kernelに関しては、GPU Direct Storageが利用可能で、学習効率
 
 ### Ubuntu 22.04 LTS
 #### Driver setup
+#### GUIを使う場合
 - Ubuntuのセットアップ時には、プロプライエタリドライバーを使わない。
 - Ubuntuのソフトウェアとアップデート→追加のドライバーから簡単にセットアップできる。
 - 選択して変更の適応を押した後、ドライバーのダウンロードなどがバックグラウンドで処理されるので、しばらく待つ。
@@ -196,13 +197,46 @@ Open-kernelに関しては、GPU Direct Storageが利用可能で、学習効率
 - ドライバーのバージョンは、GPUの種類とCUDAのバージョンに合うものを入れる
 - RTX4070Ti(12GB)の場合、CUDA12.3では、nvidia-driver-545もしくはnvidia-driver-545-openをセットアップ
 - open-kernelは、新機能を利用可能。どちらでもOK。
+
+#### GUIで選択できない場合
+- Ubuntuのアップデートを行なっておく
+  ```
+  sudo apt update
+  sudo apt upgrade
+  ```
+- 一旦ドライバーを削除する  
+  ```
+  sudo apt autoremove nvidia* --purge
+  ```
+- 利用可能なドライバーを確認する
+  ```
+  ubuntu-drivers devices
+  ```
+- 以下のコマンドで推奨ドライバーをインストールする
+  ```
+  sudo ubuntu-drivers autoinstall
+  ```
+<!-- - バージョンを指定したい場合は以下のようにする
+  ```
+  sudo apt install nvidia-driver-545
+  ``` -->
+
+- 再起動後に以下のコマンドで確認する
+  ```
+  nvidia-smi
+  ```
+- 再起動後は、GUIで変更が可能
+  
+#### 依存関係のインストール
 - zlibのインストール
 - ```sudo apt-get install zlib1g```
-- もし、ソフトウェアとアップデートで選択できない場合は、
+
+<!-- - もし、ソフトウェアとアップデートで選択できない場合は、
    - nVidiaドライバーを一旦削除する。
   - ```sudo apt-get --purge remove "*nvidia*" "libxnvctrl*"```
   - ```sudo apt-get autoremove```
-  - 改めて、ｎVidiaのドライバーをセットアップする。
+  - 改めて、ｎVidiaのドライバーをセットアップする。 -->
+
 #### CUDA setup
 - Conda側でセットアップする場合はスキップ可
 - OS側にセットアップする場合
