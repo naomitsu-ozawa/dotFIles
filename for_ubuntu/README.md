@@ -393,6 +393,25 @@ Condaで配布されているCUDA付きのパッケージを入れると、CUDA�
   - ```conda install onnxruntime=1.17.0=py311hd0df001_0_cuda```
   - onnxruntimeは、一度アンインストールしてからcudaバージョンを再インストールしないと、CUDAのEPが使えなかった。
   - conda forge channelにあるcuda同梱バージョンのインストールでGPUが利用できた。
+  - 以下のコードでEPの確認をする
+    - 出力にGPUがない場合は、GPUが使えないのでonnxruntimeのセットアップを見直す
+    ```
+    import onnxruntime
+    import numpy as np
+    from onnxruntime.datasets import get_example
+
+    example_model = get_example('sigmoid.onnx')
+
+    providers = ['CUDAExecutionProvider','CPUExecutionProvider']
+
+    sess = onnxruntime.InferenceSession(
+        example_model,
+        providers = provieders,
+      )
+    
+    print(onnxruntime.get_device())
+    print(sess.get_providers())
+    ```
   - alpha mattingを使うと処理速度が遅くなる。
 
 #### Condaとpipの混在について
