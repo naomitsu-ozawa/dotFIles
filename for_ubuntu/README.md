@@ -293,6 +293,9 @@ Tensorflow2.15以降は、CUDA12.xに移行している
   - TensorflowとCUDAに必要な諸々をインストール(依存関係やcuDnnなどもインストールされる)
     - ```pip install 'tensorflow[and-cuda]'```
     - tensorflow=2.15post1の場合、tensorrtが見つけられない警告が出るかもしれない。2.14は出なかった。
+- Tensorflow2.16.1以降
+  - デフォルトのkerasがVer3に更新されている
+  - コードをKeras3に変更するか、以下の方法でKeras2を利用する
     - 2.16.1以降は、デフォルトでKeras3を使うようになっている
     - Keras2を使う場合は、2.15以前を使うか
       - tf-keras（Keras2）をインストール
