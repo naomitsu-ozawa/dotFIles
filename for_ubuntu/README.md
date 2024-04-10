@@ -294,6 +294,32 @@ Tensorflow2.15以降は、CUDA12.xに移行している
     - ```pip install 'tensorflow[and-cuda]'```
     - tensorflow=2.15post1の場合、tensorrtが見つけられない警告が出るかもしれない。2.14は出なかった。
 - Tensorflow2.16.1以降
+  - GPUセットアップに関して、うまく行かない場合がある
+    ```
+    # 仮想環境で以下を実行してGPUを確認する
+    python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+    
+    # GPUを利用可能なら以下が出力される
+    >> [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
+    ```
+  - 2.16.1において、cuDnnをPythonパッケージから読み込まなくなっているので、環境変数を手動で追加しないといけない
+  - 実行しているシェルを確認して、.**rcファイル（zshなら.zshrc、bashなら.bashrc）に以下を追加する
+    ```
+    # 実行シェルの確認
+    echo $SHELL
+    ```
+    ```
+    # 追加するスクリプト
+    NVIDIA_DIR=$(dirname $(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)")))
+    for dir in $NVIDIA_DIR/*; do
+        if [ -d "$dir/lib" ]; then
+            export LD_LIBRARY_PATH="$dir/lib:$LD_LIBRARY_PATH"
+        fi
+    done
+    ```
+    - 追加後は、ターミナルを再起動する
+    - VSCodeを利用している場合は、ターミナル側で仮想環境をアクティベートしてからVSCodeを起動する
+  
   - デフォルトのkerasがVer3に更新されている
   - コードをKeras3に変更するか、以下の方法でKeras2を利用する
     - 2.16.1以降は、デフォルトでKeras3を使うようになっている
@@ -307,7 +333,7 @@ Tensorflow2.15以降は、CUDA12.xに移行している
         import os
         os.environ["TF_USE_LEGACY_KERAS"]="1"
         ```
-        をPythonプログラム内に記述して環境変数を設定する
+        をTensorflowのimport前に記述して環境変数を設定する
 
 - Tensorflow2.13以前の場合  
 DeepLabCutなど2.13以前のTensorflowが必要な場合は、CUDA11.xが必要  
