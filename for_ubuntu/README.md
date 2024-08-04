@@ -283,7 +283,6 @@ Open-kernelに関しては、GPU Direct Storageが利用可能で、学習効率
   ```
 #### Tensorflow setup
 Condaを使って、異なるバージョンを環境ごとにセットアップする  
-※2024年1月29日現在、CUDAの最新バージョンは12.3.2
 - Tensorflow2.14~2.15  
   Tensorflow2.15以降は、CUDA12.xに移行している  
   - CUDAのインストール(OS側にインストールしている場合はスキップ可)
