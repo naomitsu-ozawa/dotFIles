@@ -284,8 +284,8 @@ Open-kernelに関しては、GPU Direct Storageが利用可能で、学習効率
 #### Tensorflow setup
 Condaを使って、異なるバージョンを環境ごとにセットアップする  
 ※2024年1月29日現在、CUDAの最新バージョンは12.3.2
-- Tensorflow2.14以降  
-Tensorflow2.15以降は、CUDA12.xに移行している  
+- Tensorflow2.14~2.15  
+  Tensorflow2.15以降は、CUDA12.xに移行している  
   - CUDAのインストール(OS側にインストールしている場合はスキップ可)
     - Nvidia CUDA compiler（nvcc）が必要なのでいれる。（ドライバーが対応しているバージョンを入れること）
     - ```conda install cuda -c nvidia```
@@ -293,7 +293,7 @@ Tensorflow2.15以降は、CUDA12.xに移行している
   - TensorflowとCUDAに必要な諸々をインストール(依存関係やcuDnnなどもインストールされる)
     - ```pip install 'tensorflow[and-cuda]'```
     - tensorflow=2.15post1の場合、tensorrtが見つけられない警告が出るかもしれない。2.14は出なかった。
-- Tensorflow2.16.1以降
+- Tensorflow2.16.1
   - GPUセットアップに関して、うまく行かない場合がある
     ```
     # 仮想環境で以下を実行してGPUを確認する
@@ -319,8 +319,11 @@ Tensorflow2.15以降は、CUDA12.xに移行している
     ```
     - 追加後は、ターミナルを再起動する
     - VSCodeを利用している場合は、ターミナル側で仮想環境をアクティベートしてからVSCodeを起動する
-  
-  - デフォルトのkerasがVer3に更新されている
+- Tensorflow2.17.0
+  - Tenaorflow2.16.1のcuDnn参照が解決されている。
+  - Tensorflow2.14~のセットアップ方法でOK。
+- Kerasについて。
+  - Tensorflow2.16.1以降は、デフォルトのkerasがVer3に更新されている
   - コードをKeras3に変更するか、以下の方法でKeras2を利用する
     - 2.16.1以降は、デフォルトでKeras3を使うようになっている
     - Keras2を使う場合は、2.15以前を使うか
