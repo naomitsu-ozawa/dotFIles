@@ -165,7 +165,7 @@ Windows11とデュアルブート環境を作成しているので、UEFIのセ�
       ```
       sudo mokutil --enable-validation
       ```
-  5. BIOSアップデートでnvidia-smiが実行できない場合は、
+  5. BIOSアップデート後に↑の対処方法でもnvidia-smiが実行できない場合は、
       ```
       modprobe nvidia
       ```
