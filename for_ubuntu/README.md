@@ -165,6 +165,37 @@ Windows11とデュアルブート環境を作成しているので、UEFIのセ�
       ```
       sudo mokutil --enable-validation
       ```
+  5. BIOSアップデートでnvidia-smiが実行できない場合は、
+      ```
+      modprobe nvidia
+      ```
+      これを実行して
+      ```
+      modprobe: ERROR: could not insert 'nvidia': Key was rejected by service
+      ```
+      を確認する。  
+      セキュアブートの状態を確認する
+      ```
+      sudo mokutil --sb-state
+      ```
+      nVidiaドライバーを一旦削除する
+      ```
+      sudo apt remove --purge '^nvidia-.*'
+      ```
+      MOKの証明書をインポートする
+      ```
+      sudo mokutil --import /var/lib/shim-signed/mok/MOK.der
+      ```
+      パスワードを設定して再起動する
+      ```
+      sudo reboot 
+      ```
+      Perform MOK managementが立ち上がるので、Enroll MOKする  
+      再起動後にNvidiaドライバーをインストールする
+      ```
+      sudo ubuntu-drivers autoinstall
+      ```
+      インストール後に再起動しておく
 ---
 ## Waylandを有効にしたい場合（デフォルトは無効）  
 - nVidiaGPU搭載でUbuntuをセットアップした場合、デフォルトでWaylandが無効化されている（22.04LTS）。
