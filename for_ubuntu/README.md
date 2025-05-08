@@ -196,6 +196,24 @@ Windows11とデュアルブート環境を作成しているので、UEFIのセ�
       sudo ubuntu-drivers autoinstall
       ```
       インストール後に再起動しておく
+  6. Intel内蔵GPUと共存させたい場合。
+      nvidia-primeの確認  
+      ```
+      dpkg -l | grep nvidia-prime
+      ```
+      出力があればOK  
+      ない場合は、インストールする
+      ```
+      sudo apt install nvidia-prime
+      ```
+      GPU切り替え方法
+      ```
+      sudo prime-select query #どちらが選択されているか確認
+      sudo prime-select nvidia #NVIDIAを使う
+      sudo prime-select intel #Intelを使う
+      ```
+      切り替えたあとは再起動する
+
 ---
 ## Waylandを有効にしたい場合（デフォルトは無効）  
 - nVidiaGPU搭載でUbuntuをセットアップした場合、デフォルトでWaylandが無効化されている（22.04LTS）。
