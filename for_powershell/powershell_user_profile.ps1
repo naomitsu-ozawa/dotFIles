@@ -1,14 +1,6 @@
-# oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/grandpa-style.omp.json" | Invoke-Expression
-# oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/paradox.omp.json" | Invoke-Expression
-# oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/powerlevel10k_rainbow.omp.json" | Invoke-Expression
-
-
-# set PowerShell to UTF-8
 [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
 
-# Import-module posh-git
-
-oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/powerlevel10k_rainbow_2.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\powerlevel10k_rainbow.omp.json" | Invoke-Expression
 
 Import-Module -Name Terminal-Icons
 
@@ -17,15 +9,13 @@ Set-PSReadLineOption -EditMode Emacs
 Set-PSReadLineOption -BellStyle None
 Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -Function DeleteChar
 Set-PSReadLineOption -PredictionSource History
-# Set-PSReadLineOption -PredictionSource History -PredictionViewStyle ListView
 
 # EditMode Emacs 標準のタブ補完
 Set-PSReadLineKeyHandler -Key Tab -Function Complete
 # メニュー補完に変更
 Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 
-Import-Module z
-# Import-Module ZLocation
+Import-Module ZLocation
 
 # Fzf
 Import-Module PSFzf
@@ -81,4 +71,6 @@ function gf {
 
 # 実行後入力待ちになるため、AcceptLine を実行する
 Set-PSReadLineKeyHandler -Chord 'Ctrl+g' -ScriptBlock { gf; [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine() }
-Set-PSReadLineKeyHandler -Chord 'Ctrl+l' -ScriptBlock { Invoke-FuzzyZLocation; [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine() }
+Set-PSReadLineKeyHandler -Chord 'Ctrl+l' -ScriptBlock {Invoke-FuzzyZLocation; [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()}
+
+Import-Module ZLocation
