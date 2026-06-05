@@ -5,7 +5,7 @@
 GHQ周りの必要なものを入れる  
 git ghq z fzf をScoopからインストールする
 ```
-scoop install git ghq z fzf
+scoop install git ghq fzf
 ```
 
 ### install Terminal icons
