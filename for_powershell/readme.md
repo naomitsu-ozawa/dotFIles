@@ -1,7 +1,7 @@
 # Windowsの開発環境（うろ覚えバージョン）
 ---
 ## 必要なソフトウェアのインストール
-### install git ghq z fzf
+### install git ghq fzf
 GHQ周りの必要なものを入れる  
 git ghq z fzf をScoopからインストールする
 ```
@@ -33,8 +33,7 @@ Install-Module -Name PSFzf -Scope CurrentUser -Force
 ```
 
 ### Oh-My-Poshをインストール
-https://ohmyposh.dev/docs/installation/windows  
-ここを参考に、Windows版をインストールする。
+MicrosoftStoreばんをいれる
 
 ### Profileの編集
 プロファイルの確認
