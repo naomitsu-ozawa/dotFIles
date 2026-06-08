@@ -7,11 +7,11 @@
 ```nvim```
 
 - windows powershell
-'''
+```
 git clone https://github.com/LazyVim/starter "$env:LOCALAPPDATA\nvim"
 Remove-Item -Recurse -Force "$env:LOCALAPPDATA\nvim\.git"
 nvim
-'''
+```
 
 - colorscheme  
 ```/.config/nvim/lua/plugins/colorscheme.lua```  
