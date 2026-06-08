@@ -1,10 +1,18 @@
 # NeoVim setting
-- LazyVimを使う  
+- LazyVimを使う
+- Mac/Linux
 ```git clone https://github.com/LazyVim/starter ~/.config/nvim```  
 ```rm -rf ~/.config/nvim/.git```  
 - start neovim  
 ```nvim```
-  
+
+- windows powershell
+'''
+git clone https://github.com/LazyVim/starter "$env:LOCALAPPDATA\nvim"
+Remove-Item -Recurse -Force "$env:LOCALAPPDATA\nvim\.git"
+nvim
+'''
+
 - colorscheme  
 ```/.config/nvim/lua/plugins/colorscheme.lua```  
     を編集して、以下を追加する
