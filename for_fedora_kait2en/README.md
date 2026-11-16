@@ -484,61 +484,7 @@ flatpak update
 
 ## WSFによるスクロール調整
 
-ブラウザーのタッチパッドスクロール量が多く、Dconf Editorで調整しても速さが残ったため、**Wayland Scroll Factor（WSF）**を使用した。WSFで遅くできたが、GNOMEの「設定」なども遅くなったため、アプリ別に倍率を分ける構成へ進める。
-
-### 1. WSFを導入
-
-```bash
-sudo dnf install dnf-plugins-core
-sudo dnf copr enable daniel-g-carrasco/wayland-scroll-factor
-sudo dnf install wayland-scroll-factor
-wsf enable
-```
-
-一度ログアウトし、ログインし直す。
-
-### 2. GUIで全体のスクロール量を調整
-
-アプリ一覧から **Wayland Scroll Factor** を開く。ターミナルからは以下で起動できる。
-
-```bash
-wsf-gui
-```
-
-`Vertical Scroll`で縦、`Horizontal Scroll`で横のスクロール量を変更する。会話で試す値として案内した縦倍率は`0.20`。
-
-|倍率|スクロール量|
-|-|-|
-|1.00|標準|
-|0.50|50%|
-|0.20|20%|
-|0.10|10%|
-
-CLIで縦・横を設定する場合:
-
-```bash
-wsf set --scroll-vertical 0.20 --scroll-horizontal 1.00
-wsf get
-wsf status
-```
-
-### 3. ブラウザーだけ遅くする
-
-システム側まで遅くなる場合は、**Touchpad Speed Control**でアプリ別に分ける。
-
-1. 全体の倍率を戻す。
-
-   ```bash
-   wsf set 1.00
-   ```
-
-2. Extension Managerの「Browse / 探す」で **Touchpad Speed Control** を検索してインストールする。
-3. 「Installed / インストール済み」で有効にし、歯車から設定を開く。
-4. **Vertical Scroll**の**Global speed**を`1.00`にする。
-5. Chromeなど、遅くしたいアプリのスライダーを下げる。
-6. 横方向も変える場合は**Horizontal Scroll**で調整する。
-
-会話で案内した調整例:
+**WSFとTouchpad Speed Controlを組み合わせ、ブラウザーだけスクロール量を小さくする。** 全体の倍率は`1.00`にし、アプリ別に設定する。
 
 |アプリ|縦スクロール倍率|
 |-|-|
@@ -548,41 +494,62 @@ wsf status
 |ファイルマネージャー|1.00|
 |その他|1.00|
 
-アプリを切り替えると倍率も切り替わる。`General`でフォーカス検出とカーソル追跡を有効にすると、ポインター下のウィンドウにも合わせられる。
+### 導入と有効化
 
-[WSF公式](https://github.com/daniel-g-carrasco/wayland-scroll-factor) / [Touchpad Speed Control公式](https://github.com/ritesh-777/touchpad-speed-control) / [GNOME拡張の配布ページ](https://extensions.gnome.org/extension/10008/touchpad-speed-control/)
+WSFはユーザー単位でGNOME Shellにライブラリを読み込ませる。導入元は開発者のCOPRリポジトリを使用する。
 
-### 4. 設定の保存と復元
+```bash
+sudo dnf install dnf-plugins-core
+sudo dnf copr enable daniel-g-carrasco/wayland-scroll-factor
+sudo dnf install wayland-scroll-factor
+wsf set 1.00
+wsf enable
+```
 
-WSFの設定ファイルは以下。
+ログアウトしてログインし直す。
+
+### アプリ別の設定
+
+1. Extension Managerの「Browse / 探す」で **Touchpad Speed Control** を検索してインストールする。
+2. 「Installed / インストール済み」で有効にし、歯車から設定を開く。
+3. **Vertical Scroll → Global speed**を`1.00`にする。
+4. アプリ別スライダーを上の表に合わせる。
+5. **Horizontal Scroll**は`1.00`を基準に、横方向も調整したいアプリだけ変更する。
+6. **General**でフォーカス検出とカーソル追跡を有効にする。
+
+ブラウザーと「設定」アプリを切り替え、それぞれの倍率でスクロールすることを確認する。
+
+### 設定の保存と復元
+
+Touchpad Speed Controlの設定画面で **Export Settings**を選び、アプリ別設定をJSONへ保存する。復元は **Import Settings**から行う。
+
+WSF本体の設定ファイル:
 
 ```text
 ~/.config/wayland-scroll-factor/config
 ```
 
-バックアップする。
+バックアップ:
 
 ```bash
 cp -a ~/.config/wayland-scroll-factor/config ~/.config/wayland-scroll-factor/config.bak
 ```
 
-戻す場合:
+復元:
 
 ```bash
 cp -a ~/.config/wayland-scroll-factor/config.bak ~/.config/wayland-scroll-factor/config
 wsf get
 ```
 
-Touchpad Speed Control側のアプリ別倍率は、設定画面の **Export Settings**でJSONへ保存し、**Import Settings**で戻す。
-
-### 5. 効かない場合・解除する場合
+### 状態確認と修復
 
 ```bash
 wsf status
 wsf doctor
 ```
 
-ライブラリの読み込み設定を修復する場合:
+読み込み設定を修復する場合:
 
 ```bash
 wsf repair
@@ -590,11 +557,17 @@ wsf repair
 
 ログアウトしてログインし直す。
 
-WSFを解除する場合は、Touchpad Speed ControlをExtension ManagerでOFFにしてから以下を実行し、ログアウト・ログインする。
+### 解除
+
+Extension ManagerでTouchpad Speed ControlをOFFにし、WSFの読み込みを解除する。
 
 ```bash
 wsf disable
 ```
+
+ログアウトしてログインし直す。
+
+[WSF公式](https://github.com/daniel-g-carrasco/wayland-scroll-factor) / [Touchpad Speed Control公式](https://github.com/ritesh-777/touchpad-speed-control) / [GNOME拡張の配布ページ](https://extensions.gnome.org/extension/10008/touchpad-speed-control/)
 
 ---
 
