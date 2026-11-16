@@ -12,7 +12,6 @@
 - [KAIT2ENの保守](#kait2enの保守)
 - [Hybrid GPU setup](#hybrid-gpu-setup)
 - [充電上限80%](#充電上限80)
-- [DSP Speakers setup](#dsp-speakers-setup)
 - [動画のハードウェアデコード](#動画のハードウェアデコード)
 - [GNOME 200%表示](#gnome-200表示)
 - [Flatpak / Extension Manager setup](#flatpak--extension-manager-setup)
@@ -360,48 +359,6 @@ echo 100 | sudo tee /sys/class/power_supply/BAT0/charge_control_end_threshold
 ```
 
 [KAIT2EN公式: t2smcの充電上限](https://github.com/kaiT2en/KaiT2en-Fedora/blob/main/modules/t2smc/README.md#battery-charge-limit)
-
----
-
-## DSP Speakers setup
-
-KAIT2ENがMacBookPro15,1用のPipeWire DSPプロファイルを導入する。出力一覧に **DSP Speakers** があることを確認した。
-
-### 出力を選ぶ
-
-1. 「設定 → サウンド」を開く。
-2. 出力デバイスで **DSP Speakers** を選ぶ。
-3. 音声を再生する。
-
-|出力|用途|
-|-|-|
-|DSP Speakers|モデル別の音響補正を通す内蔵スピーカー|
-|Apple Internal Speakers|補正を通さない内蔵スピーカー|
-|Headphones|ヘッドホン出力|
-
-### ターミナルで確認・選択
-
-```bash
-wpctl status
-```
-
-`Audio → Sinks`からDSP Speakersを探す。`*`が付いているものが標準出力。CLIで切り替える場合は、表示されたDSP Speakersの番号を指定する。
-
-```bash
-# 55は例。wpctl statusに表示されたDSP Speakersの番号に置き換える
-wpctl set-default 55
-```
-
-### 導入状態を調べる
-
-```bash
-rpm -q t2-dsp
-ls -l /etc/pipewire/pipewire.conf.d/51-t2-dsp.conf
-```
-
-DSPが表示されない場合は再起動し、上記のパッケージと設定ファイルを確認する。MacBookPro15,1に対応するプロファイルは`15_1`。
-
-[KAIT2EN公式: Audio DSP](https://github.com/kaiT2en/KaiT2en-Fedora/blob/main/dsp/README.md)
 
 ---
 
