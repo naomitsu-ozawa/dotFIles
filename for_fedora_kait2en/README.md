@@ -428,24 +428,18 @@ KAIT2ENの標準拡大率 **166%から200%へ変更**した。変更後は動き
 
 ## Flatpak / Extension Manager setup
 
-Extension Managerは「ソフトウェア」で検索してインストールできた。以下はCLIから導入・管理する手順。
+Flathubリポジトリを有効化し、Flathubのアプリを「ソフトウェア」から利用できるように設定した。Extension Managerも「ソフトウェア」で検索してインストールした。
 
-### FlatpakとFlathub
+### Flathubリポジトリの設定
 
-まず導入状態を確認する。
+Flatpakと登録済みリポジトリを確認する。
 
 ```bash
 flatpak --version
 flatpak remotes
 ```
 
-Flatpakがない場合はインストールする。
-
-```bash
-sudo dnf install flatpak
-```
-
-Flathubを登録する。
+CLIからFlathubを登録するコマンド:
 
 ```bash
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
