@@ -15,7 +15,7 @@
 - [動画のハードウェアデコード](#動画のハードウェアデコード)
 - [GNOME表示倍率](#gnome表示倍率)
 - [Flatpak / Extension Manager setup](#flatpak--extension-manager-setup)
-- [WSFによるスクロール調整](#wsfによるスクロール調整)
+- [拡張機能でブラウザーのスクロール調整](#拡張機能でブラウザーのスクロール調整)
 - [参考](#参考)
 
 ---
@@ -482,90 +482,32 @@ flatpak update
 
 ---
 
-## WSFによるスクロール調整
+## 拡張機能でブラウザーのスクロール調整
 
-**WSFとTouchpad Speed Controlを組み合わせ、ブラウザーだけスクロール量を小さくする。** 全体の倍率は`1.00`にし、アプリ別に設定する。
+**Touchpad Speed Controlで、ブラウザーのスクロール倍率を共通して`0.15`に設定する。** ブラウザー以外は変更しない。WSFは拡張機能の動作基盤として使い、WSF本体では倍率を調整しない。
 
-|アプリ|縦スクロール倍率|
+|対象|設定|
 |-|-|
-|Chrome / Chromium|0.20|
-|Firefox|0.25|
-|GNOME 設定|1.00|
-|ファイルマネージャー|1.00|
-|その他|1.00|
+|ブラウザー共通|0.15|
+|ブラウザー以外|変更しない|
 
-### 導入と有効化
-
-WSFはユーザー単位でGNOME Shellにライブラリを読み込ませる。導入元は開発者のCOPRリポジトリを使用する。
+### WSFの導入と有効化
 
 ```bash
 sudo dnf install dnf-plugins-core
 sudo dnf copr enable daniel-g-carrasco/wayland-scroll-factor
 sudo dnf install wayland-scroll-factor
-wsf set 1.00
 wsf enable
 ```
 
 ログアウトしてログインし直す。
 
-### アプリ別の設定
+### 拡張機能で設定
 
-1. Extension Managerの「Browse / 探す」で **Touchpad Speed Control** を検索してインストールする。
-2. 「Installed / インストール済み」で有効にし、歯車から設定を開く。
-3. **Vertical Scroll → Global speed**を`1.00`にする。
-4. アプリ別スライダーを上の表に合わせる。
-5. **Horizontal Scroll**は`1.00`を基準に、横方向も調整したいアプリだけ変更する。
-6. **General**でフォーカス検出とカーソル追跡を有効にする。
-
-ブラウザーと「設定」アプリを切り替え、それぞれの倍率でスクロールすることを確認する。
-
-### 設定の保存と復元
-
-Touchpad Speed Controlの設定画面で **Export Settings**を選び、アプリ別設定をJSONへ保存する。復元は **Import Settings**から行う。
-
-WSF本体の設定ファイル:
-
-```text
-~/.config/wayland-scroll-factor/config
-```
-
-バックアップ:
-
-```bash
-cp -a ~/.config/wayland-scroll-factor/config ~/.config/wayland-scroll-factor/config.bak
-```
-
-復元:
-
-```bash
-cp -a ~/.config/wayland-scroll-factor/config.bak ~/.config/wayland-scroll-factor/config
-wsf get
-```
-
-### 状態確認と修復
-
-```bash
-wsf status
-wsf doctor
-```
-
-読み込み設定を修復する場合:
-
-```bash
-wsf repair
-```
-
-ログアウトしてログインし直す。
-
-### 解除
-
-Extension ManagerでTouchpad Speed ControlをOFFにし、WSFの読み込みを解除する。
-
-```bash
-wsf disable
-```
-
-ログアウトしてログインし直す。
+1. Extension Managerで **Touchpad Speed Control** をインストールし、有効にする。
+2. 歯車から設定画面を開く。
+3. アプリ別設定で、ブラウザーのスクロール倍率をすべて`0.15`にする。
+4. ブラウザー以外の設定は変更しない。
 
 [WSF公式](https://github.com/daniel-g-carrasco/wayland-scroll-factor) / [Touchpad Speed Control公式](https://github.com/ritesh-777/touchpad-speed-control) / [GNOME拡張の配布ページ](https://extensions.gnome.org/extension/10008/touchpad-speed-control/)
 
